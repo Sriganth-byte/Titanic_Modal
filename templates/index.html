@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Predict your survival chances on the Titanic using a machine learning model trained on historical data. Enter your details and get instant results.">
+    <meta name="keywords" content="Titanic survival prediction, Titanic dataset, machine learning, Flask web app, logistic regression">
+    <meta name="author" content="Your Name">
+    <title>Titanic Survival Prediction | ML App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+</head>
+<body>
+    <main>
+        <div class="container">
+            <h1>Titanic Survival Prediction</h1>
+            <p>Enter the passenger details below to see if you'd survive the Titanic disaster based on a trained machine learning model.</p>
+
+            <form method="POST" action="/predict">
+                <label for="Pclass">Passenger Class (1, 2, 3):</label>
+                <input type="number" name="Pclass" id="Pclass" required>
+
+                <label for="Sex">Sex:</label>
+                <select name="Sex" id="Sex" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+
+                <label for="Age">Age:</label>
+                <input type="text" name="Age" id="Age" required>
+
+                <label for="SibSp">Siblings/Spouses Aboard:</label>
+                <input type="number" name="SibSp" id="SibSp" required>
+
+                <label for="Parch">Parents/Children Aboard:</label>
+                <input type="number" name="Parch" id="Parch" required>
+
+                <label for="Fare">Fare:</label>
+                <input type="text" name="Fare" id="Fare" required>
+
+                <label for="Embarked">Port of Embarkation:</label>
+                <select name="Embarked" id="Embarked" required>
+                    <option value="C">Cherbourg</option>
+                    <option value="Q">Queenstown</option>
+                    <option value="S">Southampton</option>
+                </select>
+
+                <button type="submit">Predict Survival</button>
+            </form>
+
+            {% if prediction_text %}
+            <section class="result {{ 'survived' if 'survived' in prediction_text.lower() else 'not-survived' }}">
+                {{ prediction_text }}
+            </section>
+            {% endif %}
+
+            <img src="{{ url_for('static', filename='TITANIC.jpeg') }}" alt="Historic Titanic Ship" style="display:none;">
+        </div>
+    </main>
+
+    <footer style="text-align:center; margin-top:20px;">
+        <p>&copy; 2025 Titanic ML Predictor | Powered by Flask & Scikit-learn</p>
+    </footer>
+</body>
+</html>
